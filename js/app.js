@@ -15,7 +15,7 @@ class Calculator {
     constructor(prevOperText, currOperText) {
         this.prevOperText = prevOperText;
         this.currOperText = currOperText;
-        this.clear()
+        this.clear();
     }
 
     // 4 appendNumber
@@ -31,6 +31,22 @@ class Calculator {
         this.prevOperand = '';
         this.currOperand = '';
         this.operation = undefined;
+    }
+
+    // 8 chooseOperation
+    // if there's no number, the operation buttons are disabled
+    chooseOperation(operation) {
+        if(this.currOperand === '') return;
+        if(this.prevOperand !== '') {
+            this.compute();
+        }
+        
+        this.operation = operation;
+        
+        this.prevOperand = this.currOperand
+
+        this.currOperand = '';
+
     }
 
     // 7 compute
@@ -58,7 +74,9 @@ class Calculator {
             default:
                 return;
         }
-        this.currOperand = computation;
+
+        this.currOperand = isFinite(computation) ? computation : "ERROR"
+        // this.currOperand = computation;
         this.operation = undefined;
         this.prevOperand = '';
     }
@@ -66,7 +84,12 @@ class Calculator {
 
     // 3 delete
     delete() {
-        this.currOperand = this.currOperand.toString().slice(0 , -1);
+        if(this.currOperand == 'ERROR') {
+            this.currOperand - '';
+        } else {
+
+            this.currOperand = this.currOperand.toString().slice(0 , -1);
+        }
     }
 
     // 6 getDisplayNumber
@@ -119,24 +142,35 @@ const calculator = new Calculator(prevOperText, currOperText);
 numBtn.forEach(button => {
     button.addEventListener('click', ()=> {
         // console.log(button.innerText);
-        calculator.appendNumber(button.innerText)
+        calculator.appendNumber(button.innerText);
+        calculator.updateDisplay();
     })
 });
 
 operBtn.forEach(button => {
     button.addEventListener('click', ()=> {
-        console.log(button.innerText);
+        // console.log(button.innerText);
+        calculator.chooseOperation(button.innerText);
+        calculator.updateDisplay();
+        
     })
 });
 
 equalBtn.addEventListener('click' , ()=> {
-    console.log(equalBtn.innerText);
+    // console.log(equalBtn.innerText);
+    calculator.compute();
+    calculator.updateDisplay();
 });
 
 allClearBtn.addEventListener('click' , ()=> {
-    console.log(allClearBtn.innerText);
+    // console.log(allClearBtn.innerText);
+    calculator.clear();
+    calculator.updateDisplay();
 });
 
 deleteBtn.addEventListener('click' , ()=> {
-    console.log(deleteBtn.innerText);
+    // console.log(deleteBtn.innerText);
+    calculator.delete();
+    calculator.updateDisplay();
+
 });

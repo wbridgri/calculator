@@ -49,7 +49,7 @@ h1 {
 }
 
 .curr-operand {
-    color: var(--tert);
+    color: var(--sec);
     font-size: 2rem;
 }
 
