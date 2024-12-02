@@ -75,7 +75,7 @@ class Calculator {
                 return;
         }
 
-        this.currOperand = isFinite(computation) ? computation : "ERROR"
+        this.currOperand = isFinite(computation) ? computation : 'ERROR'
         // this.currOperand = computation;
         this.operation = undefined;
         this.prevOperand = '';
@@ -85,7 +85,7 @@ class Calculator {
     // 3 delete
     delete() {
         if(this.currOperand == 'ERROR') {
-            this.currOperand - '';
+            this.currOperand = '';
         } else {
 
             this.currOperand = this.currOperand.toString().slice(0 , -1);
