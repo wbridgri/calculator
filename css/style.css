@@ -87,3 +87,7 @@ main {
     color: var(--sec);
     background-color: var(--tert);
 }
+
+.upper {
+    text-transform: uppercase;
+}
